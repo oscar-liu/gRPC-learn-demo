@@ -1,0 +1,33 @@
+//proto3标准
+syntax = "proto3";
+
+//包名
+option go_package = "./;pb";
+
+// 请求数据体
+message RequestMessage {
+  string name = 1;
+  string message = 2;
+}
+
+// 返回数据体
+message ResponseMessage {
+  string name = 1;
+  string message = 2;
+}
+
+
+//定义rpc接口
+service Greets {
+  // 简单 RPC（Unary RPC）
+  rpc sayUnaryHello(RequestMessage) returns (ResponseMessage) {}
+
+  // 服务端流式 RPC（Server streaming RPC）
+  rpc sayServerStreamHello (RequestMessage) returns (stream ResponseMessage) {}
+
+  // 客户端流式 RPC（Client streaming RPC）
+  rpc SayClientStreamHello (stream RequestMessage) returns (ResponseMessage) {}
+
+  // 双向流式 RPC（Bi-directional streaming RPC）
+  rpc SayBiDirectionalStreamHello (stream RequestMessage) returns (stream ResponseMessage) {}
+}
